@@ -1,0 +1,1 @@
+- First script prints working directory
