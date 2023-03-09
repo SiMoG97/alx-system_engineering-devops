@@ -17,8 +17,6 @@
 15. **100-lets_move**: This script moves all files beginning with an uppercase letter to the directory /tmp/u.
 You can assume that the directory /tmp/u
 16. **101-clean_emacs**: This script deletes all files in the current working directory that end with the character ~.
-17. **102-tree**: This script creates the directories welcome/, welcome/to/ and welcome/to/school in the current directory.
-
-You are only allowed to use two spaces (and lines) in your script, not more.
+17. **102-tree**: This script creates the directories welcome/, welcome/to/ and welcome/to/school in the current directory. You are only allowed to use two spaces (and lines) in your script, not more.
 18. **103-commas**: This script lists all the files and directories of the current directory, separated by commas (,).
 19. **school.mgc**: This file can be used with the command file to detect School data files. School data files always contain the string SCHOOL at offset 0.
