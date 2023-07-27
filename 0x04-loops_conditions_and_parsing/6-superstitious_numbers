@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# A shell script that prints number form 1 to 20 and some superstitious numbers
 
 i=1
 
