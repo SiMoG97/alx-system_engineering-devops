@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 # The command(s) I used to fix the issue 
-docker exec -it f5751d0238fa sh -c "sudo /etc/init.d/apache2 start"
+echo "ServerName localhost" >> /etc/apache2.conf
+sudo service apache2 start
