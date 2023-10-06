@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# a Bash script that accept 2 arguments and prints:
+# The subdomain [SUB_DOMAIN] is a [RECORD_TYPE] record and points to [DESTINATION]
+
+if [[ $# -lt 1 ]]; then
+    exit 1
+fi
+
+domain=$1
+
+function printSubdomainInfo() {
+    subdomain=$1
+
+    dig "${subdomain}.${domain}" |\
+    grep -A1 'ANSWER SECTION:' |\
+    tail -n 1 |\
+    awk -v subdomain="${subdomain}" '{ print "The subdomain " subdomain " is a " $4 " record and points to " $5 }'
+}
+
+if [[ -n "$2" ]]; then
+    subd="$2"
+    printSubdomainInfo "${subd}"
+else
+    for subd in www lb-01 web-01 web-02; do 
+        printSubdomainInfo "${subd}"
+    done
+fi
