@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# configures nginx server to start with nginx user
+sed -i "s/#user www-data/user nginx/" /etc/nginx/nginx.conf
+sed -i "s/80/8080/g" /etc/nginx/sites-available/default
+chmod 644 /etc/nginx/nginx.conf
+# this line ensures that Apache is not running before starting nginx as both Nginx and Apache are web servers
+pkill apache2
+# run the command "service nginx start" with the user nginx
+sudo -u nginx service nginx start
