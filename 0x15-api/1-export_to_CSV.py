@@ -20,15 +20,13 @@ if __name__ == "__main__":
         userRes.raise_for_status()
         tasksRes.raise_for_status()
 
-        completedTasks = [task for task in tasks if task['completed']]
-
         id = user.get('id')
         username = user.get('username')
 
         with open(f"{argv[1]}.csv", mode="w", encoding="utf-8") as f:
             Writer = csv.writer(
                 f, delimiter=",", quoting=csv.QUOTE_ALL)
-            for task in completedTasks:
+            for task in tasks:
                 taskStatus = task.get('completed')
                 title = task.get('title')
 
