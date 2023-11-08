@@ -18,29 +18,29 @@ def recurse(subreddit, hot_list=[], after=""):
     Returns:
         list: a list of hot titles
     """
-    try:
-        url = f"https://www.reddit.com/r/{subreddit}/hot.json?after={after}"
-        headers = {
-            'User-Agent': 'My User Agent 1.0',
-        }
-        res = requests.get(url, headers=headers, allow_redirects=False)
-        if res.status_code != 200:
-            return None
+    baseUrl = f"https://www.reddit.com/r/{subreddit}/hot.json"
+    headers = {
+        'User-Agent': 'My User Agent 1.0',
+    }
+    params = {'after': after} if after else {}
+    res = requests.get(
+        baseUrl,
+        headers=headers,
+        params=params,
+        allow_redirects=False
+    )
 
-        resJson = res.json()
-        posts = resJson['data']['children']
-        after = resJson['data']['after']
-
-        if 'subreddit_id' not in posts[0]['data']:
-            return None
-
-        for post in posts:
-            hot_list.append(post['data']['title'])
-
-        if after is None:
-            return hot_list
-
-        return recurse(subreddit, hot_list, after)
-
-    except Exception:
+    if res.status_code != 200:
         return None
+
+    resJson = res.json()
+    posts = resJson.get('data').get('children')
+    afterId = resJson.get('data').get('after')
+
+    for post in posts:
+        hot_list.append(post['data']['title'])
+
+    if afterId:
+        return recurse(subreddit, hot_list, afterId)
+
+    return hot_list if len(hot_list) > 0 else None
